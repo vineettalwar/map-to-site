@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Map to Site
 
-## Getting Started
+Turn Google Maps listings into cinematic, photo-led landing pages for agency client pitches. Built on Next.js and deployed to Cloudflare Workers.
 
-First, run the development server:
+## Features
+
+- Paste a Google Maps URL → async generation pipeline
+- Real listing photos stored on Cloudflare R2
+- LLM-generated copy constrained to verified Places data
+- Cinematic scroll template (GSAP ScrollTrigger) with reduced-motion fallback
+- Agency dashboard at `/dashboard`
+- Batch generation, regenerate, and JSON export APIs
+
+## Prerequisites
+
+- Node.js 20+
+- Cloudflare account with D1, R2, and Workers enabled
+- Google Places API key
+- OpenAI or Anthropic API key
+
+## Local setup
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create `.dev.vars` in the project root:
+
+```env
+GOOGLE_PLACES_API_KEY=your_key
+OPENAI_API_KEY=your_key
+# or ANTHROPIC_API_KEY=your_key
+# optional: LLM_PROVIDER=anthropic
+
+# Optional: public R2 bucket URL. Without this, photos are served via /api/assets/
+R2_PUBLIC_BASE_URL=https://your-r2-public-domain
+
+# Multi-tenant routing (optional — defaults shown)
+PLATFORM_BASE_DOMAIN=localhost
+# Comma-separated platform hosts that skip tenant rewrite (admin, landing, etc.)
+PLATFORM_HOSTS=localhost,127.0.0.1
+```
+
+3. Apply database migrations:
+
+```bash
+npm run db:migrate:local
+```
+
+4. Start the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run deploy
+```
 
-## Learn More
+Set secrets on Cloudflare:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+wrangler secret put GOOGLE_PLACES_API_KEY
+wrangler secret put OPENAI_API_KEY
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Apply remote migrations:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run db:migrate:remote
+```
 
-## Deploy on Vercel
+## API quick reference
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Endpoint | Description |
+|----------|-------------|
+| `POST /api/generate` | `{ "url": "...", "force": false }` |
+| `POST /api/generate/batch` | `{ "urls": ["...", "..."] }` (max 10) |
+| `GET /api/sites` | List recent sites |
+| `GET /api/sites/:id` | Poll generation status |
+| `POST /api/sites/:id/regenerate` | Re-run pipeline |
+| `GET /api/sites/:id/export` | Download blueprint JSON |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Docs
+
+- [PRD](./docs/prd.md)
+- [QA checklist](./docs/qa-checklist.md)
+- [Design notes](./docs/design.md)
+- [Agents & pipeline](./docs/agents.md)
+
+## Multi-tenant routing
+
+Generated business sites are served on tenant subdomains (`{slug}.yourdomain.com`) or custom domains. Edge middleware rewrites tenant requests to the internal `/[domain]` route; platform hosts (`localhost`, `app.yourdomain.com`, entries in `PLATFORM_HOSTS`) pass through to the admin app unchanged.
+
+| Variable | Purpose |
+|----------|---------|
+| `PLATFORM_BASE_DOMAIN` | Base domain for subdomain tenants (default: `localhost`) |
+| `PLATFORM_HOSTS` | Comma-separated hostnames that never trigger tenant rewrite |
+| `R2_PUBLIC_BASE_URL` | Public R2 URL for `next/image` remote patterns |
+
+Local tenant preview: `http://{slug}.localhost:3000` (requires slug assigned after generation completes).
+
+## Architecture
+
+```
+Maps URL → POST /api/generate → runPipeline (waitUntil)
+  → Google Places API
+  → R2 photo upload (ranked by resolution)
+  → LLM copy (Zod schema)
+  → D1 persist
+→ {slug}.yourdomain.com or /site/:id (TenantTemplate → cinematic | landing | modular)
+```

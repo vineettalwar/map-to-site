@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# opennext
+.open-next
+
+# wrangler local simulation (D1, R2, KV)
+.wrangler/
+
+# env
+.dev.vars
+.env
+.env.local

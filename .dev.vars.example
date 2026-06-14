@@ -1,0 +1,14 @@
+# Copy to .dev.vars and fill in your keys:
+#   cp .dev.vars.example .dev.vars
+
+GOOGLE_PLACES_API_KEY=your_google_places_api_key
+OPENAI_API_KEY=your_openai_api_key
+# or ANTHROPIC_API_KEY=your_anthropic_api_key
+# optional: LLM_PROVIDER=anthropic
+
+# Optional: public R2 bucket URL for direct image hosting
+# R2_PUBLIC_BASE_URL=https://your-r2-public-domain
+
+# Multi-tenant routing (optional — defaults shown)
+# PLATFORM_BASE_DOMAIN=localhost
+# PLATFORM_HOSTS=localhost,127.0.0.1
