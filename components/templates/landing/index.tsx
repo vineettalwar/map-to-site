@@ -1,3 +1,4 @@
+import { SiteNav } from "@/components/templates/shared/SiteNav";
 import type { Blueprint } from "@/lib/schemas/blueprint";
 import { themeCssVariables } from "@/lib/theme/resolve-theme";
 
@@ -15,6 +16,7 @@ export function LandingTemplate({ blueprint }: { blueprint: Blueprint }) {
 			className="min-h-screen bg-background text-foreground"
 			style={themeCssVariables(blueprint.theme) as React.CSSProperties}
 		>
+			<SiteNav blueprint={blueprint} />
 			<Hero blueprint={blueprint} />
 			<About blueprint={blueprint} />
 			<Highlights blueprint={blueprint} />

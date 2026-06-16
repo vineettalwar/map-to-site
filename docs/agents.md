@@ -7,9 +7,9 @@
 **AI service:** `lib/services/ai.ts`
 
 - Input: `NormalizedBusinessData` from Phase 1
-- Output: `SiteBlueprint` via AI SDK `generateObject`
-- Providers: OpenAI GPT-4o or Anthropic Claude 3.5 Sonnet
-- Selection: `LLM_PROVIDER` env var, with automatic fallback to whichever API key is present
+- Output: `SiteBlueprint` via AI SDK `generateText` + `Output.object`
+- Providers: Ollama, OpenAI GPT-4o, or Anthropic Claude 3.5 Sonnet
+- Selection: `LLM_PROVIDER` env var, with automatic fallback to whichever credentials are present
 
 **Adapter:** `lib/schema/to-full-blueprint.ts` — maps `SiteBlueprint` + business data to the full `Blueprint` consumed by templates
 
@@ -33,3 +33,5 @@ File: `lib/pipeline/run-pipeline.ts`
 4. Persist to D1 via `updateSiteWithBlueprint`
 
 Triggered asynchronously from `POST /api/generate` using `ctx.waitUntil`.
+
+See [ollama.md](./ollama.md) for local Ollama configuration.

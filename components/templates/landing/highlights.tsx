@@ -24,7 +24,7 @@ const ICONS = {
 
 export function Highlights({ blueprint }: { blueprint: Blueprint }) {
 	return (
-		<section className="bg-muted/40 py-20">
+		<section id="highlights" className="bg-muted/40 py-20">
 			<div className="mx-auto max-w-6xl px-6">
 				<h2 className="text-3xl font-semibold tracking-tight">
 					Why customers choose {blueprint.meta.businessName}

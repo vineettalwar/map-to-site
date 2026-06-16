@@ -13,7 +13,7 @@ export function CinematicAbout({ blueprint }: { blueprint: Blueprint }) {
 	const aboutImage = getAboutImage(blueprint);
 
 	return (
-		<section className="mx-auto grid max-w-6xl gap-12 px-6 py-[var(--section-gap)] lg:grid-cols-2 lg:items-center">
+		<section id="about" className="mx-auto grid max-w-6xl gap-12 px-6 py-[var(--section-gap)] lg:grid-cols-2 lg:items-center">
 			<ScrollReveal>
 				<h2 className="font-[family-name:var(--font-instrument-serif)] text-4xl tracking-tight sm:text-5xl">
 					{blueprint.about.title}

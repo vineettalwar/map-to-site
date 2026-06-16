@@ -1,9 +1,21 @@
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+
 export type LlmProvider = "openai" | "anthropic" | "ollama";
 
 const DEFAULT_OLLAMA_BASE_URL = "http://localhost:11434/api";
 
+function getCloudflareEnvVar(name: string): string | undefined {
+	try {
+		const { env } = getCloudflareContext();
+		const value = (env as unknown as Record<string, unknown>)[name];
+		return typeof value === "string" && value.length > 0 ? value : undefined;
+	} catch {
+		return undefined;
+	}
+}
+
 export function getEnvVar(name: string): string | undefined {
-	return process.env[name];
+	return process.env[name] ?? getCloudflareEnvVar(name);
 }
 
 export function requireEnvVar(name: string): string {

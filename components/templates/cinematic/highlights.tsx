@@ -58,6 +58,7 @@ export function CinematicHighlights({ blueprint }: { blueprint: Blueprint }) {
 
 	return (
 		<section
+			id="highlights"
 			ref={sectionRef}
 			className="overflow-hidden bg-muted/30 py-[var(--section-gap)]"
 		>

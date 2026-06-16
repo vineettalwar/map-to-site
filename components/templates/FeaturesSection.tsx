@@ -9,7 +9,7 @@ export function FeaturesSection({ features }: FeaturesSectionProps) {
 	const displayFeatures = features.slice(0, 3);
 
 	return (
-		<section className="py-[var(--section-gap)]">
+		<section id="highlights" className="py-[var(--section-gap)]">
 			<div className="mx-auto max-w-6xl px-6">
 				<h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
 					Why customers choose us

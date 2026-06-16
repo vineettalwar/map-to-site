@@ -84,3 +84,11 @@ body {
 	color: hsl(var(--foreground));
 	font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
+
+[id="about"],
+[id="highlights"],
+[id="gallery"],
+[id="reviews"],
+[id="contact"] {
+	scroll-margin-top: 5rem;
+}

@@ -58,7 +58,7 @@ export function CinematicGallery({ blueprint }: { blueprint: Blueprint }) {
 
 	if (reducedMotion) {
 		return (
-			<section className="py-[var(--section-gap)]">
+			<section id="gallery" className="py-[var(--section-gap)]">
 				<div className="mx-auto max-w-6xl px-6">
 					<h2 className="font-[family-name:var(--font-instrument-serif)] text-4xl tracking-tight">
 						Gallery
@@ -89,7 +89,7 @@ export function CinematicGallery({ blueprint }: { blueprint: Blueprint }) {
 	}
 
 	return (
-		<section ref={sectionRef} className="relative bg-slate-950 text-white">
+		<section ref={sectionRef} id="gallery" className="relative bg-slate-950 text-white">
 			<div className="absolute left-6 top-8 z-10">
 				<h2 className="font-[family-name:var(--font-instrument-serif)] text-4xl tracking-tight">
 					Gallery

@@ -18,7 +18,7 @@ export function TestimonialsSection({
 	}
 
 	return (
-		<section className="bg-muted/40 py-[var(--section-gap)]">
+		<section id="reviews" className="bg-muted/40 py-[var(--section-gap)]">
 			<div className="mx-auto max-w-6xl px-6">
 				<div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
 					<h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">

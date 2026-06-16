@@ -3,6 +3,7 @@ import type { Blueprint } from "@/lib/schemas/blueprint";
 import { SiteTemplate } from "@/lib/template/resolve-template";
 import { themeCssVariables } from "@/lib/theme/resolve-theme";
 
+import { SiteNav } from "./shared/SiteNav";
 import { FeaturesSection } from "./FeaturesSection";
 import { FooterSection } from "./FooterSection";
 import { HeroSection } from "./HeroSection";
@@ -29,6 +30,7 @@ function ModularTenantTemplate({ blueprint }: { blueprint: Blueprint }) {
 			style={themeVars}
 			className="min-h-screen bg-background text-foreground"
 		>
+			<SiteNav blueprint={blueprint} showAbout={false} />
 			<HeroSection
 				hero={siteBlueprint.hero}
 				images={blueprint.gallery}

@@ -57,7 +57,7 @@ export function CinematicReviews({ blueprint }: { blueprint: Blueprint }) {
 
 	if (reducedMotion) {
 		return (
-			<section className="bg-slate-950 py-[var(--section-gap)] text-white">
+			<section id="reviews" className="bg-slate-950 py-[var(--section-gap)] text-white">
 				<div className="mx-auto max-w-6xl px-6">
 					<h2 className="font-[family-name:var(--font-instrument-serif)] text-4xl tracking-tight">
 						What customers are saying
@@ -74,6 +74,7 @@ export function CinematicReviews({ blueprint }: { blueprint: Blueprint }) {
 
 	return (
 		<section
+			id="reviews"
 			ref={sectionRef}
 			className="flex min-h-screen items-center bg-slate-950 text-white"
 		>

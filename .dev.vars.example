@@ -2,9 +2,19 @@
 #   cp .dev.vars.example .dev.vars
 
 GOOGLE_PLACES_API_KEY=your_google_places_api_key
-OPENAI_API_KEY=your_openai_api_key
-# or ANTHROPIC_API_KEY=your_anthropic_api_key
-# optional: LLM_PROVIDER=anthropic
+
+# LLM provider — pick one:
+# Option A: Ollama (local or remote)
+LLM_PROVIDER=ollama
+OLLAMA_MODEL=your-model-name
+# OLLAMA_BASE_URL=http://localhost:11434/api
+
+# Option B: OpenAI
+# OPENAI_API_KEY=your_openai_api_key
+
+# Option C: Anthropic
+# ANTHROPIC_API_KEY=your_anthropic_api_key
+# LLM_PROVIDER=anthropic
 
 # Optional: public R2 bucket URL for direct image hosting
 # R2_PUBLIC_BASE_URL=https://your-r2-public-domain

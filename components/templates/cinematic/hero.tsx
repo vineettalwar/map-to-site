@@ -10,6 +10,7 @@ import { PinnedSection } from "@/components/motion/pinned-section";
 import { StaggerChildren } from "@/components/motion/stagger-children";
 import type { Blueprint } from "@/lib/schemas/blueprint";
 import { useReducedMotion } from "@/lib/motion/use-reduced-motion";
+import { accentBackgroundStyle } from "@/lib/theme/accent-style";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -84,7 +85,7 @@ export function CinematicHero({ blueprint }: { blueprint: Blueprint }) {
 					data-stagger
 					href={blueprint.hero.ctaHref}
 					className="mt-10 inline-flex w-fit rounded-full px-8 py-4 text-sm font-semibold text-slate-950 transition hover:opacity-90"
-					style={{ backgroundColor: "hsl(var(--site-accent))" }}
+					style={accentBackgroundStyle(blueprint.theme.accent)}
 				>
 					{blueprint.hero.ctaText}
 				</a>

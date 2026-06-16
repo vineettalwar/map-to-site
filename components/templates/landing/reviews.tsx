@@ -6,7 +6,7 @@ export function Reviews({ blueprint }: { blueprint: Blueprint }) {
 	if (blueprint.reviews.length === 0) return null;
 
 	return (
-		<section className="bg-slate-950 py-20 text-white">
+		<section id="reviews" className="bg-slate-950 py-20 text-white">
 			<div className="mx-auto max-w-6xl px-6">
 				<h2 className="text-3xl font-semibold tracking-tight">
 					What customers are saying

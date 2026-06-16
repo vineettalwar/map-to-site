@@ -28,7 +28,7 @@ export function FooterSection({
 	website,
 }: FooterSectionProps) {
 	return (
-		<footer className="border-t bg-slate-950 text-white">
+		<footer id="contact" className="border-t bg-slate-950 text-white">
 			<div className="mx-auto max-w-6xl px-6 py-12">
 				<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 					<div>

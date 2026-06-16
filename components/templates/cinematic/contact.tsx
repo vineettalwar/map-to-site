@@ -4,6 +4,7 @@ import { Clock, Globe, MapPin, Phone } from "lucide-react";
 
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import type { Blueprint } from "@/lib/schemas/blueprint";
+import { accentBackgroundStyle } from "@/lib/theme/accent-style";
 
 export function CinematicContact({ blueprint }: { blueprint: Blueprint }) {
 	const mapUrl =
@@ -13,7 +14,7 @@ export function CinematicContact({ blueprint }: { blueprint: Blueprint }) {
 
 	return (
 		<>
-			<section id="contact" className="mx-auto max-w-6xl px-6 py-[var(--section-gap)]">
+			<section id="contact" className="mx-auto max-w-6xl scroll-mt-20 px-6 py-[var(--section-gap)]">
 				<ScrollReveal>
 					<div className="grid gap-10 lg:grid-cols-2">
 						<div>
@@ -73,7 +74,7 @@ export function CinematicContact({ blueprint }: { blueprint: Blueprint }) {
 				<a
 					href={blueprint.hero.ctaHref}
 					className="flex w-full items-center justify-center rounded-full py-3 text-sm font-semibold text-slate-950"
-					style={{ backgroundColor: "hsl(var(--site-accent))" }}
+					style={accentBackgroundStyle(blueprint.theme.accent)}
 				>
 					{blueprint.hero.ctaText}
 				</a>

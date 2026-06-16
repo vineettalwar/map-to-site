@@ -16,7 +16,7 @@ Turn Google Maps listings into cinematic, photo-led landing pages for agency cli
 - Node.js 20+
 - Cloudflare account with D1, R2, and Workers enabled
 - Google Places API key
-- OpenAI or Anthropic API key
+- LLM provider: **Ollama** (local/remote), **OpenAI**, or **Anthropic**
 
 ## Local setup
 
@@ -30,9 +30,17 @@ npm install
 
 ```env
 GOOGLE_PLACES_API_KEY=your_key
-OPENAI_API_KEY=your_key
-# or ANTHROPIC_API_KEY=your_key
-# optional: LLM_PROVIDER=anthropic
+
+# Option A: Ollama (see docs/ollama.md)
+LLM_PROVIDER=ollama
+OLLAMA_MODEL=llama3.2
+
+# Option B: OpenAI
+# OPENAI_API_KEY=your_key
+
+# Option C: Anthropic
+# ANTHROPIC_API_KEY=your_key
+# LLM_PROVIDER=anthropic
 
 # Optional: public R2 bucket URL. Without this, photos are served via /api/assets/
 R2_PUBLIC_BASE_URL=https://your-r2-public-domain
@@ -67,7 +75,11 @@ Set secrets on Cloudflare:
 
 ```bash
 wrangler secret put GOOGLE_PLACES_API_KEY
-wrangler secret put OPENAI_API_KEY
+# LLM — pick one provider:
+wrangler secret put LLM_PROVIDER        # ollama | openai | anthropic
+wrangler secret put OLLAMA_MODEL        # if using Ollama
+wrangler secret put OLLAMA_BASE_URL     # if using Ollama (remote URL for Workers)
+wrangler secret put OPENAI_API_KEY      # if using OpenAI
 ```
 
 Apply remote migrations:
@@ -93,6 +105,7 @@ npm run db:migrate:remote
 - [QA checklist](./docs/qa-checklist.md)
 - [Design notes](./docs/design.md)
 - [Agents & pipeline](./docs/agents.md)
+- [Ollama setup](./docs/ollama.md)
 
 ## Multi-tenant routing
 
